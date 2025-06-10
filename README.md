@@ -11,7 +11,7 @@ Para isso, foi desenvolvido um **Sistema de Gerenciamento de Estoque** com o obj
 
 1. Clone o repositório:
    ```bash
-   git clone
+   git clone https://github.com/Offinexp/TCC_EngenhariaSoftware.git
 
 2. Acesse o diretório:
    ```bash
