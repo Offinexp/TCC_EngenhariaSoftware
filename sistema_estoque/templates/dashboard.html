@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7f6;
+      margin: 0;
+      padding: 30px;
+      text-align: center;
+      color: #333;
+    }
+    h1 {
+      color: #3f51b5;
+      margin-bottom: 1.5rem;
+    }
+    a {
+      color: #3f51b5;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin: 10px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .export-btn {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .export-btn:hover {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bem-vindo, {{ current_user.nome }}!</h1>
+  <p>Você está logado como usuário.</p>
+  <p>
+    <a href="{{ url_for('main.logout') }}">Sair</a>
+    <a href="{{ url_for('main.exportar_estoque') }}" class="export-btn">📤 Exportar Estoque (CSV)</a>
+  </p>
+</body>
+</html>

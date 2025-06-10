@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% if produto %}Editar Produto{% else %}Novo Produto{% endif %}</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7f6;
+      display: flex;
+      justify-content: center;
+      padding: 30px 10px;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 2rem 3rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+    h1 {
+      color: #3f51b5;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: 600;
+      color: #333;
+    }
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 1rem;
+      resize: vertical;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #3f51b5;
+      outline: none;
+    }
+    button {
+      background-color: #3f51b5;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      width: 100%;
+      font-size: 1.1rem;
+      border-radius: 4px;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #2c3e9f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>{% if produto %}Editar Produto{% else %}Novo Produto{% endif %}</h1>
+    <form method="POST">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" value="{{ produto.nome if produto else '' }}" required />
+
+      <label for="descricao">Descrição</label>
+      <textarea id="descricao" name="descricao" rows="3">{{ produto.descricao if produto else '' }}</textarea>
+
+      <label for="quantidade">Quantidade em estoque</label>
+      <input type="number" id="quantidade" name="quantidade" value="{{ produto.quantidade_em_estoque if produto else '' }}" min="0" required />
+
+      <label for="preco">Preço (R$)</label>
+      <input type="number" id="preco" name="preco" step="0.01" value="{{ produto.preco if produto else '' }}" min="0" required />
+
+      <label for="categoria">Categoria</label>
+      <select id="categoria" name="categoria" required>
+        <option value="">Selecione uma categoria</option>
+        {% for categoria in categorias %}
+        <option value="{{ categoria.id }}" {% if produto and produto.categoria_id == categoria.id %}selected{% endif %}>{{ categoria.nome }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="submit">{% if produto %}Atualizar{% else %}Cadastrar{% endif %}</button>
+    </form>
+  </div>
+</body>
+</html>

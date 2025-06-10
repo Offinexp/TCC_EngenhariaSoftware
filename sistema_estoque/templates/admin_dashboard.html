@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Painel Admin</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fafafa;
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #3f51b5;
+      margin-bottom: 0.3rem;
+    }
+    .user-info {
+      color: #555;
+      margin-bottom: 20px;
+    }
+    a.logout {
+      color: #e53935;
+      text-decoration: none;
+      font-weight: bold;
+      float: right;
+    }
+    a.logout:hover {
+      text-decoration: underline;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #3f51b5;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    a.button {
+      background-color: #3f51b5;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    a.button:hover {
+      background-color: #2c3e9f;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Painel Admin</h1>
+    <div class="user-info">
+      Bem-vindo, {{ current_user.nome }} ({{ current_user.nivel_acesso }})
+      <a href="{{ url_for('main.logout') }}" class="logout">Sair</a>
+    </div>
+  </header>
+
+  <section>
+    <a href="{{ url_for('main.novo_produto') }}" class="button">Novo Produto</a>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th>Qtd. Estoque</th>
+          <th>Preço (R$)</th>
+          <th>Categoria</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for produto in produtos %}
+        <tr>
+          <td>{{ produto.nome }}</td>
+          <td>{{ produto.descricao }}</td>
+          <td>{{ produto.quantidade_em_estoque }}</td>
+          <td>{{ '{:.2f}'.format(produto.preco) }}</td>
+          <td>{{ produto.categoria.nome }}</td>
+          <td>
+            <a href="{{ url_for('main.editar_produto', id=produto.id) }}" class="button" style="background:#4caf50;">Editar</a>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" style="text-align:center;">Nenhum produto cadastrado.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</body>
+</html>
